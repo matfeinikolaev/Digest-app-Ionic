@@ -1,0 +1,58 @@
+<ion-header [translucent]="true" mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+        <ion-back-button text="Discover" defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end" (click)="share()">
+        <ion-icon name="share-outline"  style="margin-right: 8px;font-size: 4vw;"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div class="events">
+
+        <div class="top">
+            <ion-img src="{{attr.attraction.image.url}}">
+            </ion-img>
+            <div class="segment">
+                <span>
+                    {{attr.attraction.classifications[0].segment.name}}
+                </span>
+                <span>&middot;</span>
+                <span>
+                    {{attr.attraction.classifications[0].subGenre.name}}
+                </span>
+            </div>
+            <div class="name">
+                {{attr.attraction.name}}
+            </div>
+            <div class="upcoming">
+                Upcoming events:
+                {{attr.attraction.upcomingEvents["_total"]}}
+            </div>
+        </div>
+
+        <ion-item *ngFor="let event of events" lines="none" class="eventList">
+            <div class="date">
+                <ion-badge>
+                    <span class="month">{{event.displayDate.month}}</span>
+                    <br>
+                    <span class="day">{{event.displayDate.day}}</span>
+                </ion-badge>
+            </div>
+
+            <div class="name-venue">
+                <span>{{event.name}}</span>
+                <br>
+                <span id="venueName">{{event["_embedded"].venues[0].name}}</span>
+            </div>
+
+            <div class="button">
+                <ion-button id="priceButton" (click)="redirectToWebPage(event.url)" shape="round" color="light"> <span style="color: #53a3f5">${{event.priceRanges ? event.priceRanges[0].min : "GET" }}</span> </ion-button>
+                <br>
+                <span id="startPrice">Prices start from</span>
+            </div>
+        </ion-item>
+    </div>
+</ion-content>

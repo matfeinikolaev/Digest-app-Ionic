@@ -1,20 +1,32 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <div class="spinner" *ngIf="loader">
+      <ion-spinner style="font-size: 5vw;" ></ion-spinner>
+    </div>
+  <div class="attractions" *ngIf="!loader">
+      <ion-card *ngFor="let attr of attractions" (click)="getDetails(attr)" class="card">
+          <img src="{{attr.image.url}}">
+          <ion-card-content>
+              <div class="segment">
+                  <span>
+                      {{attr.classifications[0].segment.name}}
+                  </span>
+                  <span>&middot;</span>
+                  <span>
+                      {{attr.classifications[0].subGenre.name}}
+                  </span>
+              </div>
+              <div class="name">
+                  {{attr.name}}
+              </div>
+              <div class="upcoming">
+                  Upcoming events:
+                  {{attr.upcomingEvents["_total"]}}
+              </div>
+          </ion-card-content>
+      </ion-card>
   </div>
 </ion-content>
